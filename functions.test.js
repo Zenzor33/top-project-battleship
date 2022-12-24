@@ -45,10 +45,11 @@ describe("gameBoard", () => {
       [3, 4],
     ]);
     const board = index.gameBoard();
-    const result = board.recieveAttack([3, 4], ship.coordinates);
+    console.log(board);
+    const result = board.receiveAttack([3, 4], ship.coordinates);
     expect(result).toBeTruthy();
 
-    const result2 = board.receiveAttack([3, 4], ship.coordinates);
+    const result2 = board.receiveAttack([6, 9], ship.coordinates);
     expect(result2).toBeFalsy();
   });
   // it('receiveAttack sends the hit function to the correct ship')
