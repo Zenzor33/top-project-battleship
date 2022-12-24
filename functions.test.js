@@ -52,9 +52,17 @@ describe("gameBoard", () => {
     const result2 = board.receiveAttack([6, 9], ship.coordinates);
     expect(result2).toBeFalsy();
   });
-  // it("receiveAttack should throw if the parameter is not a length 2 array", () => {
-  //   const ship = index.createShip([1, 2]);
-  // });
+  it("receiveAttack should throw if the parameter is not a length 2 array", () => {
+    const board = testBoard;
+    const ship = testShip;
+    const args = [
+      ["1", 0],
+      [1, x],
+    ];
+    expect(() => {
+      board.receiveAttack([[1, "x"]], ship.coordinates);
+    }).toThrow();
+  });
   // it('receiveAttack sends the hit function to the correct ship')
   // it('receiveAttack records the coordinates of the missed shot')
 });
