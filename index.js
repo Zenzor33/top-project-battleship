@@ -1,10 +1,10 @@
 // Begin your app by creating the Ship factory function
 // Your ‘ships’ will be objects that include their length, the number of times they’ve been hit and whether or not they’ve been sunk.
 
-export const createShip = (length, coordinates) => {
+export const createShip = (coordinates) => {
   // coordinates expects a 2d array
   return {
-    length,
+    length: coordinates.length,
     beenHit: 0,
     sunk: false,
     coordinates,
@@ -19,12 +19,12 @@ export const createShip = (length, coordinates) => {
 
 export const gameBoard = () => {
   return {
-    receiveAttack(coordinates, shipXY) {
-      return this.doCoordsExist(coordinates, shipXY);
-      // return true;
+    receiveAttack(coordsArr, shipXY) {
+      // coordsArr expects a 2-length array
+      if (coordsArr.length != 2) throw new Err("invalid coordinates"); // test this
+      return this.doCoordsExist(coordsArr, shipXY);
     },
     doCoordsExist(coordsArr, shipXY) {
-      // coordsArr expects a 2-length array
       let x = coordsArr[0];
       let y = coordsArr[1];
       let xExists = null;
@@ -46,18 +46,3 @@ Gameboards should have a receiveAttack function
 - determines whether or not the attack hit a ship and 
 - then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot.
 */
-
-// function doCoordsExist(coordsArr, shipXY) {
-//   // coordsArr expects a 2-length array
-//   let x = coordsArr[0];
-//   let y = coordsArr[1];
-//   let xExists = null;
-//   let yExists = null;
-//   for (let i = 0; i < shipXY.length; i++) {
-//     for (let j = 0; j < shipXY[i].length; j++) {
-//       if (j === 0 && shipXY[i][j] === x) xExists = true;
-//       if (j === 1 && shipXY[i][j] === y) yExists = true;
-//     }
-//   }
-//   return xExists && yExists ? true : false;
-// }
