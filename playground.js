@@ -23,4 +23,5 @@ function doCoordsExist(coordsArr) {
   return xExists && yExists ? true : false;
 }
 
-console.log(doCoordsExist([1, 2]));
+let testArr = [0, 2, "s"];
+console.log(testArr.some((e) => typeof e !== "number"));
