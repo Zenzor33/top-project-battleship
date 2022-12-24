@@ -21,7 +21,10 @@ export const gameBoard = () => {
   return {
     receiveAttack(coordsArr, shipXY) {
       // coordsArr expects a 2-length array of numbers
-      if (coordsArr.length != 2) {
+      if (
+        coordsArr.length != 2 ||
+        coordsArr.some((e) => typeof e !== "number")
+      ) {
         throw new Error("invalid coordinates length");
       }
       return this.doCoordsExist(coordsArr, shipXY);
