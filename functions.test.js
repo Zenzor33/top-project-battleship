@@ -39,10 +39,18 @@ describe("createShip", () => {
 });
 
 describe("gameBoard", () => {
-  it("receiveAttack should take a pair coordinates", () => {
-    const result = index.gameBoard.receiveAttack([3, 4]);
+  it("receiveAttack should determine whether or not the attack hit a ship", () => {
+    const ship = index.createShip(2, [
+      [1, 2],
+      [3, 4],
+    ]);
+    const board = index.gameBoard();
+    const result = board.recieveAttack([3, 4], ship.coordinates);
+    expect(result).toBeTruthy();
+
+    const result2 = board.receiveAttack([3, 4], ship.coordinates);
+    expect(result2).toBeFalsy();
   });
-  // it('receiveAttack should determine whether or not the attack hit a ship')
   // it('receiveAttack sends the hit function to the correct ship')
   // it('receiveAttack records the coordinates of the missed shot')
 });
