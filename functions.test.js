@@ -1,4 +1,5 @@
 //     // "jest --watchAll"
+const { it } = require("node:test");
 const index = require("./index");
 
 describe("createShip", () => {
@@ -43,15 +44,24 @@ describe("gameBoard", () => {
     [3, 4],
   ]);
   const testBoard = index.gameBoard();
-  it("receiveAttack should determine whether or not the attack hit a ship", () => {
+  it("receiveAttack should determine whether the attack HIT a ship", () => {
     const ship = testShip;
     const board = testBoard;
-    const result = board.receiveAttack([3, 4], ship.coordinates);
-    expect(result).toBeTruthy();
-
-    const result2 = board.receiveAttack([6, 9], ship.coordinates);
-    expect(result2).toBeFalsy();
+    board.receiveAttack([3, 4], ship.coordinates);
+    expect(ship.beenHit).toBe(1);
   });
+  it("reciveAttack should determine whether the attack MISSED a ship", () => {
+    const ship = testShip;
+    const board = testBoard;
+    board.receiveAttack([6, 9], ship.coordinates);
+    expect(ship.beenHit).toBe(0);
+  });
+  // it("receiveAttack records the coordinates of the missed shot", () => {
+  //   const ship = testShip;
+  //   const board = testBoard;
+  //   board.receiveAttack([6, 9], ship.coordinates);
+  //   // board.missedShots.
+  // });
   it("receiveAttack should throw if the parameter is not a length 2 array of numbers", () => {
     const board = testBoard;
     const ship = testShip;
@@ -63,5 +73,5 @@ describe("gameBoard", () => {
     );
   });
   // it('receiveAttack sends the hit function to the correct ship')
-  // it('receiveAttack records the coordinates of the missed shot')
+  //
 });

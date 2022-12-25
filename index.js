@@ -27,6 +27,7 @@ export const gameBoard = () => {
       ) {
         throw new Error("invalid coordinates length");
       }
+      // check if ship exists on the coordinates
       return this.doCoordsExist(coordsArr, shipXY);
     },
     doCoordsExist(coordsArr, shipXY) {
