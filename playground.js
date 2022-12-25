@@ -26,4 +26,3 @@ let missesArr2 = [
 // create new array of ships coordinates
 let filteredArr = shipNames.map((e) => e.coordinates);
 console.log(filteredArr);
-console.log(filteredArr.length);
