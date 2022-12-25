@@ -1,4 +1,3 @@
-const { it } = require("node:test");
 const index = require("./index");
 
 describe("createShip", () => {
@@ -104,5 +103,4 @@ describe("gameBoard", () => {
     board.receiveAttack([3, 4], testShip.coordinates);
     expect(testShip.beenHit).toBe(1);
   });
-  // it('Gameboards should be able to report whether or not all of their ships have been sunk.')
 });
