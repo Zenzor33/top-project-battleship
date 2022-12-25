@@ -2,8 +2,8 @@ const index = require("./index");
 
 describe("createShip", () => {
   const testShip = index.createShip([
-    [1, 2],
-    [3, 4],
+    { x: 3, y: 4 },
+    { x: 1, y: 2 },
   ]);
   it("should contain properties: length, beenHit, sunk, hit, and isSunk", () => {
     const result = testShip;
@@ -30,16 +30,16 @@ describe("createShip", () => {
   it("createShip.coordinates should match the coordinate parameter", () => {
     const result = testShip;
     expect(result.coordinates).toEqual([
-      [1, 2],
-      [3, 4],
+      { x: 3, y: 4 },
+      { x: 1, y: 2 },
     ]);
   });
 });
 
 describe("gameBoard", () => {
   const testShip = index.createShip([
-    [1, 2],
-    [3, 4],
+    { x: 3, y: 4 },
+    { x: 1, y: 2 },
   ]);
   const testBoard = index.gameBoard();
   it("receiveAttack should determine whether the attack HIT a ship", () => {
