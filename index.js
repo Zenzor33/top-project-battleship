@@ -1,23 +1,11 @@
 // Begin your app by creating the Ship factory function
 // Your ‘ships’ will be objects that include their length, the number of times they’ve been hit and whether or not they’ve been sunk.
 
-let coordinatesObj = [
-  {
-    shipName1: [
-      { x: x, y: y },
-      { x: x, y: y },
-    ],
-    shipName2: [
-      {
-        //
-      },
-    ],
-  },
-];
+let playerShips = [];
 
-export const createShip = (coordinates) => {
+export const createShip = (coordinates, shipName) => {
   // coordinates expects a 2d array
-
+  // playerShips.push({shipName: {coordinates}})
   return {
     length: coordinates.length,
     beenHit: 0,
