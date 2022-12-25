@@ -1,3 +1,4 @@
+const { it } = require("node:test");
 const index = require("./index");
 
 describe("createShip", () => {
@@ -33,6 +34,25 @@ describe("createShip", () => {
       { x: 3, y: 4 },
       { x: 1, y: 2 },
     ]);
+  });
+  it("createShip sends ship data to playerShips array", () => {
+    const testShip = index.createShip(
+      [
+        { x: 3, y: 4 },
+        { x: 1, y: 2 },
+      ],
+      "testShip"
+    );
+    const result = index.playerShips.find(
+      (e) =>
+        e.shipName === "testShip" &&
+        e.coordinates ===
+          [
+            { x: 3, y: 4 },
+            { x: 1, y: 2 },
+          ]
+    );
+    expect(result).toBeTruthy();
   });
 });
 
@@ -71,5 +91,18 @@ describe("gameBoard", () => {
       }).toThrow()
     );
   });
-  // it('receiveAttack sends the hit function to the correct ship', )
+  it("receiveAttack sends the hit function to the correct ship", () => {
+    const testShip = index.createShip(
+      [
+        { x: 3, y: 4 },
+        { x: 1, y: 2 },
+      ],
+      "testShip"
+    );
+    const board = testBoard;
+    let xyList = index.playerShips;
+    board.receiveAttack([3, 4], testShip.coordinates);
+    expect(testShip.beenHit).toBe(1);
+  });
+  // it('Gameboards should be able to report whether or not all of their ships have been sunk.')
 });
