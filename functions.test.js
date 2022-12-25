@@ -1,5 +1,3 @@
-//     // "jest --watchAll"
-const { it } = require("node:test");
 const index = require("./index");
 
 describe("createShip", () => {
@@ -56,12 +54,13 @@ describe("gameBoard", () => {
     board.receiveAttack([6, 9], ship.coordinates);
     expect(ship.beenHit).toBe(0);
   });
-  // it("receiveAttack records the coordinates of the missed shot", () => {
-  //   const ship = testShip;
-  //   const board = testBoard;
-  //   board.receiveAttack([6, 9], ship.coordinates);
-  //   // board.missedShots.
-  // });
+  it("receiveAttack records the coordinates of the missed shot", () => {
+    const ship = testShip;
+    const board = testBoard;
+    board.receiveAttack([6, 9], ship.coordinates);
+    let result = board.missedShots.find((e) => e.x === 6 && e.y === 9);
+    expect(result).toBeTruthy();
+  });
   it("receiveAttack should throw if the parameter is not a length 2 array of numbers", () => {
     const board = testBoard;
     const ship = testShip;
@@ -72,6 +71,5 @@ describe("gameBoard", () => {
       }).toThrow()
     );
   });
-  // it('receiveAttack sends the hit function to the correct ship')
-  //
+  // it('receiveAttack sends the hit function to the correct ship', )
 });

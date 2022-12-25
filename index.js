@@ -1,8 +1,23 @@
 // Begin your app by creating the Ship factory function
 // Your ‘ships’ will be objects that include their length, the number of times they’ve been hit and whether or not they’ve been sunk.
 
+let coordinatesObj = [
+  {
+    shipName1: [
+      { x: x, y: y },
+      { x: x, y: y },
+    ],
+    shipName2: [
+      {
+        //
+      },
+    ],
+  },
+];
+
 export const createShip = (coordinates) => {
   // coordinates expects a 2d array
+
   return {
     length: coordinates.length,
     beenHit: 0,
@@ -19,6 +34,7 @@ export const createShip = (coordinates) => {
 
 export const gameBoard = () => {
   return {
+    missedShots: {},
     receiveAttack(coordsArr, shipXY) {
       // coordsArr expects a 2-length array of numbers
       if (
