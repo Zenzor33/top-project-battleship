@@ -16,35 +16,42 @@ export const ship = (shipName, coordinates) => {
 
 export const gameboard = () => {
   return {
-    shipNames: [],
-    pushShipName(shipName) {
-      return this.shipNames.push(shipName);
-    },
+    ships: [], // array of objects of all ships created
     missedShots: [],
     createShip(shipName, coordinates) {
-      this.pushShipName(shipName);
-      return (shipName = ship(shipName, coordinates));
+      const newShip = ship(shipName, coordinates);
+      this.ships.push(newShip);
+      return newShip;
     },
     receiveAttack(coordinates) {
-      // coordinates expects array of objects eg [{x:1, y: 0}, {x:2, y:3}]
       if (this.didHit(coordinates)) {
         const ship = this.didHit(coordinates);
         ship.hit();
+        return console.log(
+          `Hit on ${ship.shipName} at coordinates ${coordinates.x}, ${coordinates.y}`
+        );
       } else {
         this.missedShots.push(coordinates);
+        return console.log(
+          `Miss at coordinates ${coordinates.x}, ${coordinates.y}`
+        );
       }
     },
     didHit(coordinates) {
-      for (let i = 0; i < this.shipNames.length; i++) {
-        const ship = gametboard.shipNames[i];
-        if (ship.coordinates.some((e) => e === coordinates)) return ship;
+      for (let i = 0; i < this.ships.length; i++) {
+        const ship = this.ships[i];
+        const hit = ship.coordinates.some(
+          (e) => e.x === coordinates.x && e.y === coordinates.y
+        );
+        if (hit) return ship;
       }
       return false;
     },
-    isEveryShipSunk(shipNames) {
-      for (let i = 0; i < shipNames.length; i++) {
-        if (shipNames[i].isSunk()) continue;
-        return false;
+    isEveryShipSunk() {
+      for (let i = 0; i < this.ships.length; i++) {
+        const ship = this.ships[i];
+        if (ship.isSunk()) continue;
+        else return false;
       }
       return true;
     },
