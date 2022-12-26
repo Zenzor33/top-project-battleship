@@ -1,4 +1,4 @@
-export const ship = (shipName, coordinates) => {
+const ship = (shipName, coordinates) => {
   // coordinates expects array of objects eg [{x:1, y: 0}, {x:2, y:3}]
   return {
     length: coordinates.length,
@@ -14,30 +14,38 @@ export const ship = (shipName, coordinates) => {
   };
 };
 
-export const gameboard = () => {
+const gameboard = () => {
   return {
-    shipNames: [],
-    pushShipName(shipName) {
-      return this.shipNames.push(shipName);
-    },
+    shipNames: [], // array of obj
     missedShots: [],
+    pushShipName(shipName, coordinates) {
+      return this.shipNames.push({ shipName, coordinates });
+    },
     createShip(shipName, coordinates) {
-      this.pushShipName(shipName);
+      this.pushShipName(shipName, coordinates);
       return (shipName = ship(shipName, coordinates));
     },
     receiveAttack(coordinates) {
       // coordinates expects array of objects eg [{x:1, y: 0}, {x:2, y:3}]
+      console.log(this.didHit(coordinates));
       if (this.didHit(coordinates)) {
         const ship = this.didHit(coordinates);
         ship.hit();
+        console.log("here");
+        return console.log(
+          `Hit on ${ship.shipName} at coordinates ${ship.coordinates}`
+        );
       } else {
         this.missedShots.push(coordinates);
       }
     },
     didHit(coordinates) {
       for (let i = 0; i < this.shipNames.length; i++) {
-        const ship = gametboard.shipNames[i];
-        if (ship.coordinates.some((e) => e === coordinates)) return ship;
+        const ship = this.shipNames[i];
+        const hit = ship.coordinates.some(
+          (e) => e.x === coordinates.x && e.y === coordinates.y
+        );
+        if (hit) return ship;
       }
       return false;
     },
@@ -50,3 +58,10 @@ export const gameboard = () => {
     },
   };
 };
+
+const gameBoard = gameboard();
+const testShip = gameBoard.createShip("testShip", [
+  { x: 1, y: 2 },
+  { x: 3, y: 4 },
+]);
+console.log(gameBoard.receiveAttack({ x: 1, y: 2 }));
