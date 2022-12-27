@@ -62,4 +62,19 @@ describe("gameboard", () => {
     const result = testShip.beenHit;
     expect(result).toBe(1);
   });
+  it("Gameboards should be able to report whether or not all of their ships have been sunk.", () => {
+    const testShip2 = gameBoard.createShip("testShip", [
+      { x: -2, y: -2 },
+      { x: -1, y: -1 },
+    ]);
+    const testShip3 = gameBoard.createShip("testShip", [
+      { x: -3, y: -3 },
+      { x: -4, y: -4 },
+    ]);
+    testShip.beenHit = 2;
+    testShip2.beenHit = 2;
+    testShip3.beenhit = 2;
+    const result = gameBoard.isEveryShipSunk();
+    expect(result).toBeTruthy;
+  });
 });
