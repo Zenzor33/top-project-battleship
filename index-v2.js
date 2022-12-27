@@ -57,3 +57,9 @@ export const gameboard = () => {
     },
   };
 };
+
+export const player = (name, humanOrComputer) => {
+  return {
+    player,
+  };
+};
