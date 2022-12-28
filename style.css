@@ -21,16 +21,33 @@
   grid-template-rows: repeat(10, 20px);
 }
 
+.modalGrid {
+  display: grid;
+  height: 200px;
+  width: 200px;
+  border-style: gray;
+  border-width: 1px;
+  border-style: solid;
+  grid-template-columns: repeat(10, 20px);
+  grid-template-rows: repeat(10, 20px);
+}
+
 .modalContainer {
-  background: green;
+  background: darkgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   float: left;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* display: none; */
 }
 
-.coordinate {
+.cpuCoordinate,
+.playerCoordinate {
   /* height: 20px;
   width: 20px; */
   /* background-color: gray; */
@@ -39,6 +56,6 @@
   border-color: gray;
 }
 
-.coordinate:hover {
+.cpuCoordinate:hover {
   background-color: orange;
 }
