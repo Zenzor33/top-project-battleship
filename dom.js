@@ -1,3 +1,6 @@
+import * as index from "./index-v2.js";
+import * as appLogic from "./appLogic.js";
+
 const playerContainer = document.querySelector(".playerContainer");
 const cpuContainer = document.querySelector(".cpuContainer");
 
@@ -32,12 +35,57 @@ export const createGrid = () => {
     coordinateDiv.setAttribute("id", `c${i}`);
     coordinateDiv.setAttribute("data-cpu-x", calculateX(i));
     coordinateDiv.setAttribute("data-cpu-y", calculateY(i));
-    coordinateDiv.addEventListener("click", () =>
-      console.log(coordinateDiv.id)
-    );
+    coordinateDiv.addEventListener("click", nameLater);
     cpuContainer.appendChild(coordinateDiv);
   }
 };
+
+function nameLater(e) {
+  const x = e.target.getAttribute("data-cpu-x");
+  const y = e.target.getAttribute("data-cpu-y");
+  const didHit = appLogic.cpuGameboard.receiveAttack({ x: x, y: y });
+  didHit ? processHit(x, y) : processMiss(x, y);
+  // is everyCpuShipSunk ? endGame : processCpuMove
+  const isEveryCpuShipSunk = appLogic.cpuGameboard.isEveryShipSunk();
+  isEveryCpuShipSunk ? endGame("player") : processCpuMove();
+}
+
+function generateRandomX() {
+  return Math.floor(Math.random() * 10);
+}
+
+function generateRandomY() {
+  return Math.floor(Math.random() * 10);
+}
+
+const targets = [];
+function processCpuMove() {
+  const x = generateRandomX();
+  const y = generateRandomY();
+  if (targets.some((e) => e.x == x && e.y == y)) processCpuMove();
+  appLogic.playerGameboard.receiveAttack({ x: x, y: y });
+  targets.push({ x: x, y: y });
+  const isEveryPlayerShipSunk = appLogic.playerGameboard.isEveryShipSunk();
+  if (isEveryPlayerShipSunk) endGame("computer");
+}
+
+function endGame(winner) {
+  winner === "player"
+    ? console.log("player wins")
+    : console.log("computer wins");
+}
+
+function processHit(x, y) {
+  const id = document.querySelector(`[data-cpu-x="${x}"][data-cpu-y="${y}"]`);
+  id.style.backgroundColor = "red";
+  id.removeEventListener("click", nameLater);
+}
+
+function processMiss(x, y) {
+  const id = document.querySelector(`[data-cpu-x="${x}"][data-cpu-y="${y}"]`);
+  id.style.backgroundColor = "blue";
+  id.removeEventListener("click", nameLater);
+}
 
 export const paintPlayerShips = (shipArr) => {
   const paintPlayerCoordinate = (x, y) => {
@@ -48,10 +96,3 @@ export const paintPlayerShips = (shipArr) => {
   };
   shipArr.map((e) => e.coordinates.map((e) => paintPlayerCoordinate(e.x, e.y)));
 };
-
-export const paintGameboard = (x, y) => {
-  //
-};
-
-// createGrid();
-// paintPlayerShips();

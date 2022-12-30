@@ -24,24 +24,29 @@ export const gameboard = () => {
       return newShip;
     },
     receiveAttack(coordinates) {
+      // returns true if hit, returns false if miss
       if (this.didHit(coordinates)) {
         const ship = this.didHit(coordinates);
         ship.hit();
-        return console.log(
+        // paint dom here?
+        console.log(
           `Hit on ${ship.shipName} at coordinates ${coordinates.x}, ${coordinates.y}`
         );
+        return true;
       } else {
         this.missedShots.push(coordinates);
-        return console.log(
-          `Miss at coordinates ${coordinates.x}, ${coordinates.y}`
-        );
+        console.log(`Miss at coordinates ${coordinates.x}, ${coordinates.y}`);
+        return false;
       }
     },
     didHit(coordinates) {
       for (let i = 0; i < this.ships.length; i++) {
         const ship = this.ships[i];
-        const hit = ship.coordinates.some(
-          (e) => e.x === coordinates.x && e.y === coordinates.y
+        const shipCoordinates = ship.coordinates;
+        // console.log(typeof coordinates.x);
+        // console.log(shipCoordinates.some((e) => e.x == coordinates.x));
+        const hit = shipCoordinates.some(
+          (e) => e.x == coordinates.x && e.y == coordinates.y
         );
         if (hit) return ship;
       }
